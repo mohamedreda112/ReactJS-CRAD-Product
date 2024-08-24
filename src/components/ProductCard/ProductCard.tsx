@@ -10,10 +10,11 @@ interface IProps {
   openEditModal: () => void;
   setProductToEditIdx: (value:number)=> void;
   idx:number;
+  openConfirmModal: ()=> void;
 }
 
 
-const ProductCard = ({product, setProductToEdit, openEditModal, idx, setProductToEditIdx}: IProps) => {
+const ProductCard = ({product, setProductToEdit, openEditModal, idx, setProductToEditIdx, openConfirmModal}: IProps) => {
   const {title, description, imageURL, price, category, colors} = product
 
   // RENDER //
@@ -25,11 +26,16 @@ const ProductCard = ({product, setProductToEdit, openEditModal, idx, setProductT
     openEditModal()
     setProductToEditIdx(idx)
   }
-
+  
+  
+  const onRemove = () => {
+    setProductToEdit(product)
+    openConfirmModal();
+  }
 
 
   return (
-    <div className="max-w-sm md:max-w-lg mx-auto border rounded-md p-2 flex flex-col">
+    <div className="max-w-sm md:max-w-lg mx-auto border rounded-md p-2 flex flex-col justify-between">
       <Image
         imageURL={imageURL}
         alt="product name"
@@ -39,16 +45,19 @@ const ProductCard = ({product, setProductToEdit, openEditModal, idx, setProductT
 
       <p>{textSlicer(description)}</p>
 
-      <div className="flex items-center space-x-1 flex-wrap">
-            {renderProductColors}
-          </div>
+      {/* <div className="flex items-center space-x-1 flex-wrap">
+        {renderProductColors}
+      </div> */}
+      <div className="flex items-center space-x-1 flex-wrap my-1">
+        {!colors.length ? <p className="min-h-[20px] font-medium">Not avaliable colors!</p> : renderProductColors}
+      </div>
 
       <div className="flex items-center justify-between">
-        <span>{price}</span>
+        <span className="text-blue-600 font-bold">${price}</span>
         <Image
           imageURL={category.imageURL}
           alt={category.name}
-          className="w-10 h-10 rounded-full object-bottom"
+          className="w-10 h-10 rounded-full object-cover"
         />
       </div>
 
@@ -56,7 +65,7 @@ const ProductCard = ({product, setProductToEdit, openEditModal, idx, setProductT
         <Button className="bg-indigo-700 " onClick={()=> {
           onEdit()
         }}>Edit</Button>
-        <Button className="bg-red-700 ">Remove</Button>
+        <Button className="bg-red-700 " onClick={onRemove}>Remove</Button>
       </div>
     </div>
   )
