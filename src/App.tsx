@@ -268,7 +268,7 @@ const App = () => {
         description="Deleting this product will remove it permenantly from your inventory. Any associated data, sales history, and other related information will also be deleted. Please make sure this is the intended action.">
           <div className="flex items-center space-x-3">
             <Button className="bg-[#c2344d] hover:bg-red-800 w-full" onClick={removeProductHandler}>Yes, remove</Button>
-            <Button className="bg-[#f5f5fa] hover:bg-gray-300 w-full text-black" onClick={closeConfirmModal}>Cancel</Button>
+            <Button className="bg-[#f5f5fa] hover:bg-gray-300 w-full text-black" style={{color:"black"}} onClick={closeConfirmModal}>Cancel</Button>
           </div>
       </Modal>
       <Toaster/>
