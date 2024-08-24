@@ -1,4 +1,4 @@
-import { Button, Dialog, DialogPanel, DialogTitle, Transition } from '@headlessui/react'
+import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, ReactNode} from 'react'
 
 interface IProps {
