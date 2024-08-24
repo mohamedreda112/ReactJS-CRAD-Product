@@ -6,14 +6,28 @@ import Button from "../UI/Button"
 
 interface IProps {
   product:IProduct;
+  setProductToEdit: (product: IProduct)=> void;
+  openEditModal: () => void;
+  setProductToEditIdx: (value:number)=> void;
+  idx:number;
 }
 
 
-const ProductCard = ({product}: IProps) => {
+const ProductCard = ({product, setProductToEdit, openEditModal, idx, setProductToEditIdx}: IProps) => {
   const {title, description, imageURL, price, category, colors} = product
 
   // RENDER //
   const renderProductColors = colors.map( color =>  <CircleColor key={color} color={color}/>);
+  
+  // HANDLER //
+  const onEdit =() => {
+    setProductToEdit(product)
+    openEditModal()
+    setProductToEditIdx(idx)
+  }
+
+
+
   return (
     <div className="max-w-sm md:max-w-lg mx-auto border rounded-md p-2 flex flex-col">
       <Image
@@ -29,13 +43,6 @@ const ProductCard = ({product}: IProps) => {
             {renderProductColors}
           </div>
 
-      {/* <div className="flex items-center space-x-2 my-4">
-        <span className="w-5 h-5 bg-indigo-600 rounded-full cursor-pointer"/>
-        <span className="w-5 h-5 bg-yellow-600 rounded-full cursor-pointer"/>
-        <span className="w-5 h-5 bg-red-600 rounded-full cursor-pointer"/>
-        <span className="w-5 h-5 bg-emerald-600 rounded-full cursor-pointer"/>
-      </div> */}
-
       <div className="flex items-center justify-between">
         <span>{price}</span>
         <Image
@@ -47,9 +54,9 @@ const ProductCard = ({product}: IProps) => {
 
       <div className="flex items-center justify-between space-x-2 mt-5">
         <Button className="bg-indigo-700 " onClick={()=> {
-          console.log("Mohamed")
+          onEdit()
         }}>Edit</Button>
-        <Button className="bg-red-700 ">Destory</Button>
+        <Button className="bg-red-700 ">Remove</Button>
       </div>
     </div>
   )
